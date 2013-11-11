@@ -58,9 +58,11 @@ VmGenerator.prototype.projectfiles = function projectfiles() {
 
 VmGenerator.prototype.chef = function chef() {
     this.mkdir('.chef');
+    this.mkdir('site-cookbooks');
     this.copy('knife.rb', '.chef/knife.rb');
     this.copy('_Cheffile', 'Cheffile');
     this.copy('recipes.json', 'recipes.json');
+    this.directory('site-cookbook', 'site-cookbooks/app');
 };
 
 VmGenerator.prototype.gems = function gems() {

@@ -3,6 +3,7 @@
 		"recipe[apt]",
 		"recipe[vim]",
 		"recipe[git]",
-		"recipe[nginx]"
+		"recipe[nginx]",
+		"recipe[app]"
 	]
 }
