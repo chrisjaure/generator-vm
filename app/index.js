@@ -37,6 +37,12 @@ VmGenerator.prototype.askFor = function askFor() {
         },
         {
             type: 'input',
+            name: 'vmWebPort',
+            message: 'Forward port 80 to:',
+            default: 8000
+        },
+        {
+            type: 'input',
             name: 'vmBoxName',
             message: 'Vagrant box:',
             default: 'opscode-ubuntu-13.04'
