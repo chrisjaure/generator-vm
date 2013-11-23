@@ -8,9 +8,13 @@ var VmGenerator = module.exports = function VmGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function () {
-        this.log.ok('Success!');
-        this.log.writeln('Run `bundle install && bundle exec librarian-chef install` to install cookbooks.');
         // this.installDependencies({ skipInstall: options['skip-install'] });
+        if (this.shell.which('bundle')) {
+            this.log.info('Installing gems...');
+            this.shell.exec('bundle install');
+            this.log.info('Installing recipes...');
+            this.shell.exec('bundle exec librarian-chef install');
+        }
     });
 
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
