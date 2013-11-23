@@ -3,7 +3,7 @@
 
 var assert = require('assert');
 
-describe('vm-boilerplate-generator generator', function () {
+describe('vm-generator generator', function () {
     it('can be imported without blowing up', function () {
         var app = require('../app');
         assert(app !== undefined);

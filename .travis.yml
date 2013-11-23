@@ -4,5 +4,5 @@ node_js:
   - '0.10'
 before_install:
   - currentfolder=${PWD##*/}
-  - if [ "$currentfolder" != 'generator-vm-boilerplate' ]; then cd .. && eval "mv $currentfolder generator-vm-boilerplate" && cd generator-vm-boilerplate; fi
+  - if [ "$currentfolder" != 'generator-vm' ]; then cd .. && eval "mv $currentfolder generator-vm" && cd generator-vm; fi
 
