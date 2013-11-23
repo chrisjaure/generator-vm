@@ -8,6 +8,7 @@ var VmGenerator = module.exports = function VmGenerator(args, options, config) {
     yeoman.generators.Base.apply(this, arguments);
 
     this.on('end', function () {
+        var exists;
         // this.installDependencies({ skipInstall: options['skip-install'] });
         if (this.shell.which('bundle')) {
             this.log.info('Installing gems...');
@@ -15,6 +16,14 @@ var VmGenerator = module.exports = function VmGenerator(args, options, config) {
             this.log.info('Installing recipes...');
             this.shell.exec('bundle exec librarian-chef install');
         }
+        if (this.shell.which('vagrant')) {
+            exists = this.shell.exec('vagrant plugin list | grep vagrant-omnibus', { silent: true }).output;
+            if (!exists) {
+                this.log.info('Installing vagrant-omnibus plugin...');
+                this.shell.exec('vagrant plugin install vagrant-omnibus');
+            }
+        }
+        this.log.ok('Complete! Run `vagrant up` to start up your new box!');
     });
 
     this.pkg = JSON.parse(this.readFileAsString(path.join(__dirname, '../package.json')));
