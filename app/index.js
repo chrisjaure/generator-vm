@@ -10,17 +10,19 @@ var VmGenerator = module.exports = function VmGenerator(args, options, config) {
     this.on('end', function () {
         var exists;
         // this.installDependencies({ skipInstall: options['skip-install'] });
-        if (this.shell.which('bundle')) {
-            this.log.info('Installing gems...');
-            this.shell.exec('bundle install');
-            this.log.info('Installing recipes...');
-            this.shell.exec('bundle exec librarian-chef install');
-        }
-        if (this.shell.which('vagrant')) {
-            exists = this.shell.exec('vagrant plugin list | grep vagrant-omnibus', { silent: true }).output;
-            if (!exists) {
-                this.log.info('Installing vagrant-omnibus plugin...');
-                this.shell.exec('vagrant plugin install vagrant-omnibus');
+        if (!options['skip-install']) {
+            if (this.shell.which('bundle')) {
+                this.log.info('Installing gems...');
+                this.shell.exec('bundle install');
+                this.log.info('Installing recipes...');
+                this.shell.exec('bundle exec librarian-chef install');
+            }
+            if (this.shell.which('vagrant')) {
+                exists = this.shell.exec('vagrant plugin list | grep vagrant-omnibus', { silent: true }).output;
+                if (!exists) {
+                    this.log.info('Installing vagrant-omnibus plugin...');
+                    this.shell.exec('vagrant plugin install vagrant-omnibus');
+                }
             }
         }
         this.log.ok('Complete! Run `vagrant up` to start up your new box!');
